@@ -1,15 +1,31 @@
 using UnityEngine;
+using StarterAssets;
 
 public class Weapon : MonoBehaviour
 {
-    // Update is called once per frame
+    [SerializeField] private int damageAmount = 1;
+    StarterAssetsInputs StarterAssetsInputs;
+    void Awake()
+    {
+        StarterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
+    }      
     void Update()
     {
+        HandleShoot();
+    }
+
+    void HandleShoot()
+    {
+        if (!StarterAssetsInputs.shoot) return;
+
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
         {
-            Debug.Log(hit.collider.name);
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            enemyHealth?.TakeDamage(damageAmount);
+
+            StarterAssetsInputs.ShootInput(false);
         }
     }
 }

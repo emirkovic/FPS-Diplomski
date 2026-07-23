@@ -3,11 +3,14 @@ using StarterAssets;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] Animator gunAnimator;
     [SerializeField] private int damageAmount = 1;
-    StarterAssetsInputs StarterAssetsInputs;
+    StarterAssetsInputs starterAssetsInputs;
+    const string SHOOT_ANIMATION = "Shoot";
     void Awake()
     {
-        StarterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
+        starterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
     }      
     void Update()
     {
@@ -16,7 +19,11 @@ public class Weapon : MonoBehaviour
 
     void HandleShoot()
     {
-        if (!StarterAssetsInputs.shoot) return;
+        if (!starterAssetsInputs.shoot) return;
+
+        muzzleFlash.Play();
+        gunAnimator.Play(SHOOT_ANIMATION, 0, 0f);
+        starterAssetsInputs.ShootInput(false);
 
         RaycastHit hit;
 
@@ -24,8 +31,6 @@ public class Weapon : MonoBehaviour
         {
             EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
             enemyHealth?.TakeDamage(damageAmount);
-
-            StarterAssetsInputs.ShootInput(false);
         }
     }
 }

@@ -17,3 +17,4 @@ MonoBehaviour:
   fireRate: 0.5
   hitVFX: {fileID: 3155594824878178984, guid: 3bc8b59722699b544b53c0de7388af4f, type: 3}
   IsAutomatic: 0
+  weaponSlot: 1

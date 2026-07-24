@@ -7,5 +7,6 @@ public class WeaponSO : ScriptableObject
     public float fireRate = 0.5f;
     public GameObject hitVFX;
     public bool IsAutomatic = false;
+    public int weaponSlot = 1;
 
 }

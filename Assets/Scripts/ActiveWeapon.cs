@@ -24,6 +24,17 @@ public class ActiveWeapon : MonoBehaviour
         HandleShoot();
     }
 
+    public void SwitchWeapon(WeaponSO weaponSO)
+    {
+        if (currentWeapon)
+        {
+            Destroy(currentWeapon.gameObject);
+        }
+        Weapon newWeapon = Instantiate(weaponSO.weaponPrefab, transform).GetComponent<Weapon>();
+        currentWeapon = newWeapon;
+        this.weaponSO = weaponSO;
+    }
+
     void HandleShoot()
     {
         if (!starterAssetsInputs.shoot) return;
@@ -33,6 +44,10 @@ public class ActiveWeapon : MonoBehaviour
             gunAnimator.Play(SHOOT_ANIMATION, 0, 0f);
             nextTimeToFire = 0f;
         }
-        starterAssetsInputs.ShootInput(false);
+
+        if (!weaponSO.IsAutomatic)
+        {
+            starterAssetsInputs.ShootInput(false);
+        }
     }
 }

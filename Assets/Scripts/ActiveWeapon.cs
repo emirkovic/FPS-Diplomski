@@ -104,6 +104,7 @@ public class ActiveWeapon : MonoBehaviour
 
     void HandleZoom()
     {
+        if (weaponSO == null || starterAssetsInputs == null) return;
         if (!weaponSO.canZoom) return;
         if (starterAssetsInputs.zoom)
         {

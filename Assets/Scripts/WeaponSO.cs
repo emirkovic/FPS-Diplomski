@@ -8,5 +8,6 @@ public class WeaponSO : ScriptableObject
     public GameObject hitVFX;
     public bool IsAutomatic = false;
     public int weaponSlot = 1;
-
+    public bool canZoom = false;
+    public float zoomFOV = 10f;
 }

@@ -2,20 +2,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using StarterAssets;
+using Unity.Cinemachine;
 
 public class ActiveWeapon : MonoBehaviour
 {
     [SerializeField] WeaponSO weaponSO;
+    [SerializeField] CinemachineVirtualCamera playerFollowCamera;
+    [SerializeField] GameObject zoomReticle;
     Animator gunAnimator;
     StarterAssetsInputs starterAssetsInputs;
     Weapon currentWeapon;
     readonly Dictionary<int, WeaponSO> weaponSlots = new Dictionary<int, WeaponSO>();
     const string SHOOT_ANIMATION = "Shoot";
     float nextTimeToFire = 0f;
+    float originalFOV;
     void Awake()
     {
         starterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
         gunAnimator = GetComponent<Animator>();
+        originalFOV = playerFollowCamera.m_Lens.FieldOfView;
     }
     void Start()
     {
@@ -23,8 +28,8 @@ public class ActiveWeapon : MonoBehaviour
     }
     void Update()
     {
-        nextTimeToFire += Time.deltaTime;
         HandleShoot();
+        HandleZoom();
         HandleWeaponSwitchInput();
     }
 
@@ -70,6 +75,7 @@ public class ActiveWeapon : MonoBehaviour
 
     void HandleShoot()
     {
+        nextTimeToFire += Time.deltaTime;
         if (!starterAssetsInputs.shoot) return;
         if (!currentWeapon || weaponSO == null) return;
         if (nextTimeToFire >= weaponSO.fireRate)
@@ -82,6 +88,21 @@ public class ActiveWeapon : MonoBehaviour
         if (!weaponSO.IsAutomatic)
         {
             starterAssetsInputs.ShootInput(false);
+        }
+    }
+
+    void HandleZoom()
+    {
+        if (!weaponSO.canZoom) return;
+        if (starterAssetsInputs.zoom)
+        {
+            playerFollowCamera.m_Lens.FieldOfView = weaponSO.zoomFOV;
+            zoomReticle.SetActive(true);
+        }
+        else
+        {
+            playerFollowCamera.m_Lens.FieldOfView = originalFOV;
+            zoomReticle.SetActive(false);
         }
     }
 }

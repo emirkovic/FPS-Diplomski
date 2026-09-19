@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using StarterAssets;
 
+[RequireComponent(typeof(Animator))]
 public class ActiveWeapon : MonoBehaviour
 {
     [SerializeField] WeaponSO weaponSO;
@@ -16,6 +17,12 @@ public class ActiveWeapon : MonoBehaviour
     {
         starterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
         gunAnimator = GetComponent<Animator>();
+
+        if (starterAssetsInputs == null)
+        {
+            Debug.LogError("ActiveWeapon requires a StarterAssetsInputs component on its parent.", this);
+            enabled = false;
+        }
     }
     void Start()
     {
@@ -70,12 +77,16 @@ public class ActiveWeapon : MonoBehaviour
 
     void HandleShoot()
     {
+        if (starterAssetsInputs == null) return;
         if (!starterAssetsInputs.shoot) return;
         if (!currentWeapon || weaponSO == null) return;
         if (nextTimeToFire >= weaponSO.fireRate)
         {
             currentWeapon.Shoot(weaponSO);
-            gunAnimator.Play(SHOOT_ANIMATION, 0, 0f);
+            if (gunAnimator != null)
+            {
+                gunAnimator.Play(SHOOT_ANIMATION, 0, 0f);
+            }
             nextTimeToFire = 0f;
         }
 

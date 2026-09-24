@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93e785ac10e25924fba144725d2ed8fb, type: 3}
-  m_Name: SniperRifle
+  m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   weaponPrefab: {fileID: 2829330795694513445, guid: bed9949cb09a7e84ca8a2822066d1145, type: 3}
   damageAmount: 2
@@ -18,9 +18,6 @@ MonoBehaviour:
   hitVFX: {fileID: 3155594824878178984, guid: 3bc8b59722699b544b53c0de7388af4f, type: 3}
   IsAutomatic: 0
   weaponSlot: 3
-  canZoom: 1
-<<<<<<< HEAD
+  canZoom: 0
   zoomFOV: 10
-=======
->>>>>>> a0f6ba005f367dd23c881804bafc4a1e65d8aa0e
   magazineSize: 5

@@ -18,10 +18,6 @@ MonoBehaviour:
   hitVFX: {fileID: 3155594824878178984, guid: 3bc8b59722699b544b53c0de7388af4f, type: 3}
   IsAutomatic: 1
   weaponSlot: 2
-<<<<<<< HEAD
   canZoom: 0
   zoomFOV: 10
   magazineSize: 100
-=======
-  magazineSize: 40
->>>>>>> a0f6ba005f367dd23c881804bafc4a1e65d8aa0e

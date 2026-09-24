@@ -20,4 +20,4 @@ MonoBehaviour:
   weaponSlot: 3
   canZoom: 0
   zoomFOV: 10
-  magazineSize: 5
+  magazineSize: 30

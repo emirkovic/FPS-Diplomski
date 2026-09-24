@@ -10,4 +10,5 @@ public class WeaponSO : ScriptableObject
     public int weaponSlot = 1;
     public bool canZoom = false;
     public float zoomFOV = 10f;
+    public int magazineSize = 12;
 }

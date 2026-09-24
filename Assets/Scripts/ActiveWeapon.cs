@@ -54,8 +54,15 @@ public class ActiveWeapon : MonoBehaviour
     public void SwitchWeapon(WeaponSO weaponSO)
     {
         weaponSlots[weaponSO.weaponSlot] = weaponSO;
-        ammoPerWeapon[weaponSO] = weaponSO.magazineSize;
+        ammoPerWeapon[weaponSO] = GetAmmo(weaponSO) + weaponSO.magazineSize;
         EquipWeapon(weaponSO);
+    }
+
+    public void AddAmmo(WeaponSO weaponToRefill, int amount)
+    {
+        if (weaponToRefill == null) return;
+        ammoPerWeapon[weaponToRefill] = GetAmmo(weaponToRefill) + amount;
+        UpdateAmmoUI();
     }
 
     void EquipWeapon(WeaponSO weaponToEquip)
@@ -118,7 +125,12 @@ public class ActiveWeapon : MonoBehaviour
 
     int GetCurrentAmmo()
     {
-        return ammoPerWeapon.TryGetValue(weaponSO, out int ammo) ? ammo : 0;
+        return GetAmmo(weaponSO);
+    }
+
+    int GetAmmo(WeaponSO weapon)
+    {
+        return ammoPerWeapon.TryGetValue(weapon, out int ammo) ? ammo : 0;
     }
 
     void UpdateAmmoUI()

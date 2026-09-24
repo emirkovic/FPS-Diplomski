@@ -12,7 +12,11 @@ public class ActiveWeapon : MonoBehaviour
     [SerializeField] WeaponSO weaponSO;
     [SerializeField] CinemachineVirtualCamera playerFollowCamera;
     [SerializeField] GameObject zoomReticle;
+<<<<<<< HEAD
     [SerializeField] Image ammoImage;
+=======
+    [SerializeField] GameObject ammoUI;
+>>>>>>> a0f6ba005f367dd23c881804bafc4a1e65d8aa0e
     [SerializeField] TMP_Text ammoText;
     Animator gunAnimator;
     StarterAssetsInputs starterAssetsInputs;
@@ -124,6 +128,7 @@ public class ActiveWeapon : MonoBehaviour
     void UpdateAmmoUI()
     {
         bool hasWeapon = weaponSO != null;
+<<<<<<< HEAD
         if (ammoImage != null)
         {
             ammoImage.gameObject.SetActive(hasWeapon);
@@ -135,6 +140,15 @@ public class ActiveWeapon : MonoBehaviour
             {
                 ammoText.text = GetCurrentAmmo().ToString();
             }
+=======
+        if (ammoUI != null)
+        {
+            ammoUI.SetActive(hasWeapon);
+        }
+        if (ammoText != null && hasWeapon)
+        {
+            ammoText.text = GetCurrentAmmo().ToString();
+>>>>>>> a0f6ba005f367dd23c881804bafc4a1e65d8aa0e
         }
     }
 

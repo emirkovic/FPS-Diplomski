@@ -54,8 +54,15 @@ public class ActiveWeapon : MonoBehaviour
     public void SwitchWeapon(WeaponSO weaponSO)
     {
         weaponSlots[weaponSO.weaponSlot] = weaponSO;
-        ammoPerWeapon[weaponSO] = weaponSO.magazineSize;
+        ammoPerWeapon[weaponSO] = GetAmmo(weaponSO) + weaponSO.magazineSize;
         EquipWeapon(weaponSO);
+    }
+
+    public void AddAmmo(WeaponSO weaponToRefill, int amount)
+    {
+        if (weaponToRefill == null) return;
+        ammoPerWeapon[weaponToRefill] = GetAmmo(weaponToRefill) + amount;
+        UpdateAmmoUI();
     }
 
     void EquipWeapon(WeaponSO weaponToEquip)
@@ -98,7 +105,7 @@ public class ActiveWeapon : MonoBehaviour
         if (starterAssetsInputs == null) return;
         if (!starterAssetsInputs.shoot) return;
         if (!currentWeapon || weaponSO == null) return;
-        if (nextTimeToFire >= weaponSO.fireRate && GetCurrentAmmo() > 0)
+        if (nextTimeToFire >= weaponSO.fireRate && GetAmmo(weaponSO) > 0)
         {
             currentWeapon.Shoot(weaponSO);
             ammoPerWeapon[weaponSO]--;
@@ -116,9 +123,9 @@ public class ActiveWeapon : MonoBehaviour
         }
     }
 
-    int GetCurrentAmmo()
+    int GetAmmo(WeaponSO weapon)
     {
-        return ammoPerWeapon.TryGetValue(weaponSO, out int ammo) ? ammo : 0;
+        return ammoPerWeapon.TryGetValue(weapon, out int ammo) ? ammo : 0;
     }
 
     void UpdateAmmoUI()
@@ -133,7 +140,7 @@ public class ActiveWeapon : MonoBehaviour
             ammoText.gameObject.SetActive(hasWeapon);
             if (hasWeapon)
             {
-                ammoText.text = GetCurrentAmmo().ToString();
+                ammoText.text = GetAmmo(weaponSO).ToString();
             }
         }
     }

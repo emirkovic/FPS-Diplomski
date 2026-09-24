@@ -105,7 +105,7 @@ public class ActiveWeapon : MonoBehaviour
         if (starterAssetsInputs == null) return;
         if (!starterAssetsInputs.shoot) return;
         if (!currentWeapon || weaponSO == null) return;
-        if (nextTimeToFire >= weaponSO.fireRate && GetAmmo(weaponSO) > 0)
+        if (nextTimeToFire >= weaponSO.fireRate && GetCurrentAmmo() > 0)
         {
             currentWeapon.Shoot(weaponSO);
             ammoPerWeapon[weaponSO]--;
@@ -121,6 +121,11 @@ public class ActiveWeapon : MonoBehaviour
         {
             starterAssetsInputs.ShootInput(false);
         }
+    }
+
+    int GetCurrentAmmo()
+    {
+        return GetAmmo(weaponSO);
     }
 
     int GetAmmo(WeaponSO weapon)
@@ -140,7 +145,7 @@ public class ActiveWeapon : MonoBehaviour
             ammoText.gameObject.SetActive(hasWeapon);
             if (hasWeapon)
             {
-                ammoText.text = GetAmmo(weaponSO).ToString();
+                ammoText.text = GetCurrentAmmo().ToString();
             }
         }
     }

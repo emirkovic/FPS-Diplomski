@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using StarterAssets;
 using Unity.Cinemachine;
+using TMPro;
 
 [RequireComponent(typeof(Animator))]
 public class ActiveWeapon : MonoBehaviour
@@ -10,10 +12,13 @@ public class ActiveWeapon : MonoBehaviour
     [SerializeField] WeaponSO weaponSO;
     [SerializeField] CinemachineVirtualCamera playerFollowCamera;
     [SerializeField] GameObject zoomReticle;
+    [SerializeField] Image ammoImage;
+    [SerializeField] TMP_Text ammoText;
     Animator gunAnimator;
     StarterAssetsInputs starterAssetsInputs;
     Weapon currentWeapon;
     readonly Dictionary<int, WeaponSO> weaponSlots = new Dictionary<int, WeaponSO>();
+    readonly Dictionary<WeaponSO, int> ammoPerWeapon = new Dictionary<WeaponSO, int>();
     const string SHOOT_ANIMATION = "Shoot";
     float nextTimeToFire = 0f;
     float originalFOV;
@@ -32,6 +37,11 @@ public class ActiveWeapon : MonoBehaviour
     void Start()
     {
         currentWeapon = GetComponentInChildren<Weapon>();
+        if (weaponSO != null)
+        {
+            ammoPerWeapon[weaponSO] = weaponSO.magazineSize;
+        }
+        UpdateAmmoUI();
     }
     void Update()
     {
@@ -44,6 +54,7 @@ public class ActiveWeapon : MonoBehaviour
     public void SwitchWeapon(WeaponSO weaponSO)
     {
         weaponSlots[weaponSO.weaponSlot] = weaponSO;
+        ammoPerWeapon[weaponSO] = weaponSO.magazineSize;
         EquipWeapon(weaponSO);
     }
 
@@ -56,6 +67,7 @@ public class ActiveWeapon : MonoBehaviour
         Weapon newWeapon = Instantiate(weaponToEquip.weaponPrefab, transform).GetComponent<Weapon>();
         currentWeapon = newWeapon;
         weaponSO = weaponToEquip;
+        UpdateAmmoUI();
     }
 
     void HandleWeaponSwitchInput()
@@ -86,9 +98,11 @@ public class ActiveWeapon : MonoBehaviour
         if (starterAssetsInputs == null) return;
         if (!starterAssetsInputs.shoot) return;
         if (!currentWeapon || weaponSO == null) return;
-        if (nextTimeToFire >= weaponSO.fireRate)
+        if (nextTimeToFire >= weaponSO.fireRate && GetCurrentAmmo() > 0)
         {
             currentWeapon.Shoot(weaponSO);
+            ammoPerWeapon[weaponSO]--;
+            UpdateAmmoUI();
             if (gunAnimator != null)
             {
                 gunAnimator.Play(SHOOT_ANIMATION, 0, 0f);
@@ -99,6 +113,28 @@ public class ActiveWeapon : MonoBehaviour
         if (!weaponSO.IsAutomatic)
         {
             starterAssetsInputs.ShootInput(false);
+        }
+    }
+
+    int GetCurrentAmmo()
+    {
+        return ammoPerWeapon.TryGetValue(weaponSO, out int ammo) ? ammo : 0;
+    }
+
+    void UpdateAmmoUI()
+    {
+        bool hasWeapon = weaponSO != null;
+        if (ammoImage != null)
+        {
+            ammoImage.gameObject.SetActive(hasWeapon);
+        }
+        if (ammoText != null)
+        {
+            ammoText.gameObject.SetActive(hasWeapon);
+            if (hasWeapon)
+            {
+                ammoText.text = GetCurrentAmmo().ToString();
+            }
         }
     }
 

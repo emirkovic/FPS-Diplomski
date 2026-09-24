@@ -19,3 +19,5 @@ MonoBehaviour:
   IsAutomatic: 0
   weaponSlot: 3
   canZoom: 1
+  zoomFOV: 10
+  magazineSize: 5

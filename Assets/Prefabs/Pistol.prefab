@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   muzzleFlash: {fileID: 4055223582619134278}
+  interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &3605298379938278066
 PrefabInstance:
   m_ObjectHideFlags: 0

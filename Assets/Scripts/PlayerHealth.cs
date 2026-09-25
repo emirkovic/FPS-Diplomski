@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject shieldContainer;
     [SerializeField] GameObject ammoContainer;
     [SerializeField] Image[] shieldBars;
+    [SerializeField] GameObject gameOverContauiner;
     private int currentHealth;
     int gameOverCameraPriority = 20;
 
@@ -40,6 +41,9 @@ public class PlayerHealth : MonoBehaviour
             {
                 ammoContainer.SetActive(false);
             }
+            gameOverContauiner.SetActive(true);
+            StarterAssets.StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssets.StarterAssetsInputs>();
+            starterAssetsInputs.enabled = false;
             Destroy(this.gameObject);
         }
     }

@@ -2,15 +2,31 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private float explosionRadius = 5f;
+    [SerializeField] int damage = 3;
     void Start()
     {
-        
+        Explode();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+
+    void Explode()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider hitCollider in hitColliders)
+        {
+            PlayerHealth playerHealth = hitCollider.GetComponent<PlayerHealth>();
+
+            if (playerHealth) continue;
+            
+            playerHealth.TakeDamage(damage);
+
+            break;
+        }
     }
 }

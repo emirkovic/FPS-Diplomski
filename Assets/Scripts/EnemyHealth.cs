@@ -16,8 +16,13 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+            SelfDestruct();
         }
+    }
+
+    public void SelfDestruct()
+    {
+        Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 }

@@ -22,7 +22,7 @@ public class Explosion : MonoBehaviour
         {
             PlayerHealth playerHealth = hitCollider.GetComponent<PlayerHealth>();
 
-            if (playerHealth) continue;
+            if (!playerHealth) continue;
             
             playerHealth.TakeDamage(damage);
 

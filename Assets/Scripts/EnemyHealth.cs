@@ -22,7 +22,9 @@ public class EnemyHealth : MonoBehaviour
 
     public void SelfDestruct()
     {
-        Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        Collider enemyCollider = GetComponent<Collider>();
+        Vector3 effectPosition = enemyCollider ? enemyCollider.bounds.center : transform.position;
+        Instantiate(deathEffectPrefab, effectPosition, Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

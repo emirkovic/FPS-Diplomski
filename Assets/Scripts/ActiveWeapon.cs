@@ -11,6 +11,7 @@ public class ActiveWeapon : MonoBehaviour
 {
     [SerializeField] WeaponSO weaponSO;
     [SerializeField] CinemachineVirtualCamera playerFollowCamera;
+    [SerializeField] Camera weaponCamera;
     [SerializeField] GameObject zoomReticle;
     [SerializeField] Image ammoImage;
     [SerializeField] TMP_Text ammoText;
@@ -157,11 +158,13 @@ public class ActiveWeapon : MonoBehaviour
         if (starterAssetsInputs.zoom)
         {
             playerFollowCamera.m_Lens.FieldOfView = weaponSO.zoomFOV;
+            weaponCamera.fieldOfView = weaponSO.zoomFOV;
             zoomReticle.SetActive(true);
         }
         else
         {
             playerFollowCamera.m_Lens.FieldOfView = originalFOV;
+            weaponCamera.fieldOfView = originalFOV;
             zoomReticle.SetActive(false);
         }
     }

@@ -1,9 +1,17 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] LayerMask interactableLayerMask;
+
+    CinemachineImpulseSource impulseSource;
+
+    void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
     public void Shoot(WeaponSO weaponSO)
     {
         RaycastHit hit;

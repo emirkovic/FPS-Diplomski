@@ -1,22 +1,27 @@
 using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
+    [Range(1, 10)]
     [SerializeField] private int startingHealth = 10;
     [SerializeField] CinemachineCamera deathVirtualCamera;
     [SerializeField] Transform weaponCamera;
     [SerializeField] GameObject crosshair;
+    [SerializeField] Image[] shieldBars;
     private int currentHealth;
     int gameOverCameraPriority = 20;
 
     void Start()
     {
         currentHealth = startingHealth;
+        AdjustShieldBars();
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        AdjustShieldBars();
         if (currentHealth <= 0)
         {
             weaponCamera.parent = null;
@@ -26,6 +31,21 @@ public class PlayerHealth : MonoBehaviour
                 crosshair.SetActive(false);
             }
             Destroy(this.gameObject);
+        }
+    }
+
+    void AdjustShieldBars()
+    {
+        for (int i = 0; i < shieldBars.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                shieldBars[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                shieldBars[i].gameObject.SetActive(false);
+            }
         }
     }
 }

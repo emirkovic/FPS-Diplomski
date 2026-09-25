@@ -3,7 +3,7 @@ using Unity.Cinemachine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth = 10;
-    [SerializeField] CinemachineVirtualCamera deathVirtualCamera;
+    [SerializeField] CinemachineCamera deathVirtualCamera;
     [SerializeField] Transform weaponCamera;
     private int currentHealth;
     int gameOverCameraPriority = 20;

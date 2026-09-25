@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] CinemachineCamera deathVirtualCamera;
     [SerializeField] Transform weaponCamera;
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject shieldContainer;
+    [SerializeField] GameObject ammoContainer;
     [SerializeField] Image[] shieldBars;
     private int currentHealth;
     int gameOverCameraPriority = 20;
@@ -29,6 +31,14 @@ public class PlayerHealth : MonoBehaviour
             if (crosshair != null)
             {
                 crosshair.SetActive(false);
+            }
+            if (shieldContainer != null)
+            {
+                shieldContainer.SetActive(false);
+            }
+            if (ammoContainer != null)
+            {
+                ammoContainer.SetActive(false);
             }
             Destroy(this.gameObject);
         }

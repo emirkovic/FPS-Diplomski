@@ -5,6 +5,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int startingHealth = 10;
     [SerializeField] CinemachineCamera deathVirtualCamera;
     [SerializeField] Transform weaponCamera;
+    [SerializeField] GameObject crosshair;
     private int currentHealth;
     int gameOverCameraPriority = 20;
 
@@ -20,6 +21,10 @@ public class PlayerHealth : MonoBehaviour
         {
             weaponCamera.parent = null;
             deathVirtualCamera.Priority = gameOverCameraPriority;
+            if (crosshair != null)
+            {
+                crosshair.SetActive(false);
+            }
             Destroy(this.gameObject);
         }
     }

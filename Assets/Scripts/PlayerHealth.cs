@@ -43,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
             }
             gameOverContauiner.SetActive(true);
             StarterAssets.StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssets.StarterAssetsInputs>();
+            starterAssetsInputs.cursorLocked = false;
+            starterAssetsInputs.SetCursorState(false);
             starterAssetsInputs.enabled = false;
             Destroy(this.gameObject);
         }

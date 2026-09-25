@@ -20,6 +20,7 @@ public class Turret : MonoBehaviour
      
      void Update()
      {
+         if (!playerTargetPoint) return;
          turretHead.LookAt(playerTargetPoint);
      }
 
@@ -28,7 +29,7 @@ public class Turret : MonoBehaviour
          while (player)
          {
              yield return new WaitForSeconds(fireRate);
-             Instantiate(projectilePrefab, projectileSpawnPoint.position, turretHead.rotation);
+             if (!player) yield break;
                 Projectile newProjectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, turretHead.rotation).GetComponent<Projectile>();
                 newProjectile.transform.LookAt(playerTargetPoint);
                 newProjectile.Init(damage);

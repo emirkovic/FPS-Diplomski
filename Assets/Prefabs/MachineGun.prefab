@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCollisionImpulseSource
   ImpulseDefinition:
     ImpulseChannel: 1
-    ImpulseShape: 0
+    ImpulseShape: 1
     CustomImpulseShape:
       serializedVersion: 2
       m_Curve: []
@@ -73,7 +73,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     ImpulseDuration: 0.2
-    ImpulseType: 3
+    ImpulseType: 0
     DissipationRate: 0
     RawSignal: {fileID: 0}
     AmplitudeGain: 1

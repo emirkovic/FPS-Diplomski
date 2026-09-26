@@ -1,26 +1,27 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GrenadeThrower : MonoBehaviour
 {
     [SerializeField] Rigidbody grenadePrefab;
-    [SerializeField] int startingGrenades = 3;
+    [SerializeField] int startingGrenades = 0;
     [SerializeField] Key throwKey = Key.G;
     [SerializeField] float throwForce = 15f;
     [SerializeField] float upwardForce = 3f;
     [SerializeField] float throwCooldown = 0.5f;
     [SerializeField] float spawnDistance = 0.8f;
-    [Tooltip("Text that shows how many grenades are left.")]
-    [SerializeField] TMP_Text grenadeCountText;
-
+    PlayerHealth playerHealth;
     int grenadesLeft;
     float nextThrowTime;
 
     void Start()
     {
+        playerHealth = GetComponentInParent<PlayerHealth>();
         grenadesLeft = startingGrenades;
-        UpdateGrenadeUI();
+        if (grenadesLeft > 0)
+        {
+            UpdateGrenadeUI();
+        }
     }
 
     void Update()
@@ -55,9 +56,9 @@ public class GrenadeThrower : MonoBehaviour
 
     void UpdateGrenadeUI()
     {
-        if (grenadeCountText != null)
+        if (playerHealth)
         {
-            grenadeCountText.text = grenadesLeft.ToString();
+            playerHealth.UpdateGrenadeUI(grenadesLeft);
         }
     }
 }

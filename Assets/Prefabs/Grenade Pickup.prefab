@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GrenadePickup
   rotationSpeed: 100
   grenadeAmount: 2
+  pickupSFX: {fileID: 8300000, guid: c3430338b7987524d96ce1f63db280cd, type: 3}
+  pickupSFXVolume: 1
 --- !u!135 &1957744739373304048
 SphereCollider:
   m_ObjectHideFlags: 0

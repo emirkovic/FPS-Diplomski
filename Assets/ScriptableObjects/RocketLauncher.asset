@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e785ac10e25924fba144725d2ed8fb, type: 3}
+  m_Name: RocketLauncher
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  weaponPrefab: {fileID: 4904917228479875468, guid: e7d8cb60ced74da190ee324468ed14cf, type: 3}
+  fireRate: 1.2
+  hitVFX: {fileID: 3155594824878178984, guid: 3bc8b59722699b544b53c0de7388af4f, type: 3}
+  IsAutomatic: 0
+  weaponSlot: 4
+  canZoom: 0
+  zoomFOV: 10
+  magazineSize: 5
+  closeRange: 10
+  midRange: 25
+  closeDamage: 0
+  midDamage: 0
+  longDamage: 0
+  zoomedDamage: 0
+  projectilePrefab: {fileID: 4092872357349286730, guid: 929fa8e8589d40cea004614ebcc8d9d2, type: 3}

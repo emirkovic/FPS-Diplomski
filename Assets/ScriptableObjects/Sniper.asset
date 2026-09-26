@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   weaponPrefab: {fileID: 2829330795694513445, guid: bed9949cb09a7e84ca8a2822066d1145, type: 3}
-  damageAmount: 2
   fireRate: 0.5
   hitVFX: {fileID: 3155594824878178984, guid: 3bc8b59722699b544b53c0de7388af4f, type: 3}
   IsAutomatic: 0
@@ -21,3 +20,10 @@ MonoBehaviour:
   canZoom: 1
   zoomFOV: 10
   magazineSize: 30
+  closeRange: 10
+  midRange: 25
+  closeDamage: 2
+  midDamage: 0
+  longDamage: 0
+  zoomedDamage: 10
+  projectilePrefab: {fileID: 0}

@@ -108,7 +108,8 @@ public class ActiveWeapon : MonoBehaviour
         if (!currentWeapon || weaponSO == null) return;
         if (nextTimeToFire >= weaponSO.fireRate && GetCurrentAmmo() > 0)
         {
-            currentWeapon.Shoot(weaponSO);
+            bool isZoomed = weaponSO.canZoom && starterAssetsInputs.zoom;
+            currentWeapon.Shoot(weaponSO, isZoomed);
             ammoPerWeapon[weaponSO]--;
             UpdateAmmoUI();
             if (gunAnimator != null)

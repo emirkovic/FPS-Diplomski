@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: MachineGun
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
   weaponPrefab: {fileID: 102125272398343798, guid: 5b9a59620b9a66941b9a984cfc881dda, type: 3}
-  damageAmount: 1
   fireRate: 0.1
   hitVFX: {fileID: 3155594824878178984, guid: 3bc8b59722699b544b53c0de7388af4f, type: 3}
   IsAutomatic: 1
@@ -21,3 +20,10 @@ MonoBehaviour:
   canZoom: 0
   zoomFOV: 10
   magazineSize: 100
+  closeRange: 10
+  midRange: 25
+  closeDamage: 2
+  midDamage: 1
+  longDamage: 0
+  zoomedDamage: 0
+  projectilePrefab: {fileID: 0}

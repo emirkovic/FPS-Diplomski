@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
 
-// A capsule soldier that fights like the player: it carries a pistol and a sniper rifle,
+// A capsule soldier that fights like the player: it carries a pistol and a machine gun,
 // picks the right one for the distance, and keeps deciding whether to push or take cover.
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(EnemyHealth))]
@@ -20,15 +20,19 @@ public class SoldierAI : MonoBehaviour
         public float fireRate = 0.6f;
         public int magazineSize = 8;
         public float reloadTime = 2f;
-        [Tooltip("Seconds spent aiming before each shot. Gives the player a chance to react.")]
+        [Tooltip("Seconds spent aiming before opening fire. Gives the player a chance to react.")]
         public float aimTime = 0.4f;
+        [Tooltip("Shots fired before pausing. 0 = no limit.")]
+        public int burstSize = 0;
+        [Tooltip("Pause between bursts.")]
+        public float burstPause = 0.5f;
         [Tooltip("Random spread in degrees.")]
         public float spread = 3f;
         public float minRange = 0f;
         public float maxRange = 20f;
         [Tooltip("Distance where this weapon works best.")]
         public float idealRange = 10f;
-        [Tooltip("Shows a red laser while aiming, like a sniper scope glint.")]
+        [Tooltip("Shows a red laser while aiming, and aims again before every shot.")]
         public bool showLaserWhileAiming;
         [HideInInspector] public int ammo;
     }
@@ -40,12 +44,12 @@ public class SoldierAI : MonoBehaviour
     [SerializeField] SoldierWeapon pistol = new SoldierWeapon
     {
         name = "Pistol", damage = 1, fireRate = 0.5f, magazineSize = 8, reloadTime = 1.5f,
-        aimTime = 0.3f, spread = 4f, minRange = 0f, maxRange = 22f, idealRange = 8f
+        aimTime = 0.3f, spread = 4f, minRange = 0f, maxRange = 18f, idealRange = 5f
     };
-    [SerializeField] SoldierWeapon sniper = new SoldierWeapon
+    [SerializeField] SoldierWeapon machineGun = new SoldierWeapon
     {
-        name = "Sniper", damage = 3, fireRate = 2f, magazineSize = 4, reloadTime = 2.5f,
-        aimTime = 1f, spread = 0.6f, minRange = 6f, maxRange = 60f, idealRange = 30f, showLaserWhileAiming = true
+        name = "Machine Gun", damage = 1, fireRate = 0.12f, magazineSize = 25, reloadTime = 2.5f,
+        aimTime = 0.4f, burstSize = 5, burstPause = 0.7f, spread = 5f, minRange = 0f, maxRange = 35f, idealRange = 15f
     };
     [SerializeField] float weaponSwapTime = 0.6f;
     [SerializeField] float minTimeBetweenSwaps = 2f;
@@ -101,6 +105,7 @@ public class SoldierAI : MonoBehaviour
     float reloadDoneTime = -1f;
     float nextShotTime;
     float aimReadyTime = -1f;
+    int shotsInBurst;
 
     bool alerted;
     bool canSeePlayer;
@@ -133,7 +138,7 @@ public class SoldierAI : MonoBehaviour
         agent.updateRotation = false;
 
         pistol.ammo = pistol.magazineSize;
-        sniper.ammo = sniper.magazineSize;
+        machineGun.ammo = machineGun.magazineSize;
         Equip(pistol);
 
         laser = CreateLine("Laser", 0.015f);
@@ -334,8 +339,6 @@ public class SoldierAI : MonoBehaviour
         if (distance < weapon.minRange || distance > weapon.maxRange) score -= 1f;
         // A loaded gun beats one that needs reloading.
         score += weapon.ammo > 0 ? 0.3f : -0.6f;
-        // Long shots from cover are what the sniper is for.
-        if (weapon == sniper && state == State.TakeCover) score += 0.1f;
         return score;
     }
 
@@ -449,7 +452,7 @@ public class SoldierAI : MonoBehaviour
         }
         else if (currentWeapon.showLaserWhileAiming)
         {
-            // Snipers hold still to aim.
+            // Hold still while aiming a laser-sighted weapon.
             agent.isStopped = true;
         }
         else if (Time.time >= nextStrafeTime)
@@ -514,6 +517,7 @@ public class SoldierAI : MonoBehaviour
         if (!canShoot)
         {
             aimReadyTime = -1f;
+            shotsInBurst = 0;
             laser.enabled = false;
             return;
         }
@@ -536,8 +540,16 @@ public class SoldierAI : MonoBehaviour
     {
         currentWeapon.ammo--;
         nextShotTime = Time.time + currentWeapon.fireRate;
-        aimReadyTime = Time.time + currentWeapon.aimTime;
-        laser.enabled = false;
+        if (currentWeapon.burstSize > 0 && ++shotsInBurst >= currentWeapon.burstSize)
+        {
+            shotsInBurst = 0;
+            nextShotTime = Time.time + currentWeapon.burstPause;
+        }
+        if (currentWeapon.showLaserWhileAiming)
+        {
+            aimReadyTime = Time.time + currentWeapon.aimTime;
+            laser.enabled = false;
+        }
 
         // A moving player is harder to hit.
         float playerSpeed = playerController ? playerController.velocity.magnitude : 0f;
@@ -596,6 +608,7 @@ public class SoldierAI : MonoBehaviour
         lastSwapTime = Time.time;
         reloadDoneTime = -1f;
         aimReadyTime = -1f;
+        shotsInBurst = 0;
         laser.enabled = false;
         if (currentWeapon != null && currentWeapon.model) currentWeapon.model.SetActive(false);
     }
@@ -604,6 +617,7 @@ public class SoldierAI : MonoBehaviour
     {
         reloadDoneTime = Time.time + currentWeapon.reloadTime;
         aimReadyTime = -1f;
+        shotsInBurst = 0;
         laser.enabled = false;
     }
 
@@ -612,12 +626,12 @@ public class SoldierAI : MonoBehaviour
         currentWeapon = weapon;
         pendingWeapon = null;
         if (pistol.model) pistol.model.SetActive(weapon == pistol);
-        if (sniper.model) sniper.model.SetActive(weapon == sniper);
+        if (machineGun.model) machineGun.model.SetActive(weapon == machineGun);
     }
 
     SoldierWeapon OtherWeapon(SoldierWeapon weapon)
     {
-        return weapon == pistol ? sniper : pistol;
+        return weapon == pistol ? machineGun : pistol;
     }
 
     float AmmoPercent(SoldierWeapon weapon)

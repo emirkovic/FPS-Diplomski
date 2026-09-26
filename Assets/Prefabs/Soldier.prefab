@@ -124,27 +124,31 @@ MonoBehaviour:
     magazineSize: 8
     reloadTime: 1.5
     aimTime: 0.3
+    burstSize: 0
+    burstPause: 0.5
     spread: 4
     minRange: 0
-    maxRange: 22
-    idealRange: 8
+    maxRange: 18
+    idealRange: 5
     showLaserWhileAiming: 0
     ammo: 0
-  sniper:
-    name: Sniper
+  machineGun:
+    name: Machine Gun
     model: {fileID: 7080202161297006280}
     muzzle: {fileID: 2330463460982623924}
-    fireSFX: {fileID: 8300000, guid: 06ada5590eba8d6489b36c6f3c54ff78, type: 3}
-    damage: 3
-    fireRate: 2
-    magazineSize: 4
+    fireSFX: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
+    damage: 1
+    fireRate: 0.12
+    magazineSize: 25
     reloadTime: 2.5
-    aimTime: 1
-    spread: 0.6
-    minRange: 6
-    maxRange: 60
-    idealRange: 30
-    showLaserWhileAiming: 1
+    aimTime: 0.4
+    burstSize: 5
+    burstPause: 0.7
+    spread: 5
+    minRange: 0
+    maxRange: 35
+    idealRange: 15
+    showLaserWhileAiming: 0
     ammo: 0
   weaponSwapTime: 0.6
   minTimeBetweenSwaps: 2
@@ -648,7 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7780636606321585318}
   m_Layer: 6
-  m_Name: Sniper
+  m_Name: Machine Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,8 +666,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7080202161297006280}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.057605978, z: 0, w: 0.9983394}
-  m_LocalPosition: {x: -5.3226476, y: -0.225, z: 2.8764758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.008, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -710,58 +714,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6282675560348487960}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3144
+      value: -0.60512817
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19
+      value: -0.024000093
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.691961
+      value: 0.5357284
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.98417354
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
-      propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.17720762
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 20.414
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+    - target: {fileID: 919132149155446097, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
       propertyPath: m_Name
-      value: Sniper_01_Blue
+      value: Heavy_machine_gun_01_Blue_Team
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
 --- !u!4 &4739953298793414562 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 860f35edef6dcfe40b58b14593dfeafb, type: 3}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8c5e5625b7bd884899700bf60088473, type: 3}
   m_PrefabInstance: {fileID: 7987564448043757570}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &908003766542550246
@@ -805,7 +809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2330463460982623924}
   m_Layer: 6
-  m_Name: Sniper Muzzle
+  m_Name: Machine Gun Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -820,7 +824,7 @@ Transform:
   m_GameObject: {fileID: 644732932399926804}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.15, z: 1.8}
+  m_LocalPosition: {x: 0.475, y: -0.1, z: 1.164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

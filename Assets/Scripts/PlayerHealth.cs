@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject shieldContainer;
     [SerializeField] GameObject ammoContainer;
+    [SerializeField] GameObject grenadeContainer;
+    [SerializeField] GameObject enemiesLeftText;
     [SerializeField] Image[] shieldBars;
     [SerializeField] GameObject gameOverContauiner;
     private int currentHealth;
@@ -40,6 +42,14 @@ public class PlayerHealth : MonoBehaviour
             if (ammoContainer != null)
             {
                 ammoContainer.SetActive(false);
+            }
+            if (grenadeContainer != null)
+            {
+                grenadeContainer.SetActive(false);
+            }
+            if (enemiesLeftText != null)
+            {
+                enemiesLeftText.SetActive(false);
             }
             gameOverContauiner.SetActive(true);
             StarterAssets.StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssets.StarterAssetsInputs>();

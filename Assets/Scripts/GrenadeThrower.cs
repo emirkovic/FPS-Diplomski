@@ -11,10 +11,8 @@ public class GrenadeThrower : MonoBehaviour
     [SerializeField] float upwardForce = 3f;
     [SerializeField] float throwCooldown = 0.5f;
     [SerializeField] float spawnDistance = 0.8f;
-    [Tooltip("Optional text that shows how many grenades are left.")]
+    [Tooltip("Text that shows how many grenades are left.")]
     [SerializeField] TMP_Text grenadeCountText;
-
-    const string GRENADES_STRING = "Grenades: ";
 
     int grenadesLeft;
     float nextThrowTime;
@@ -59,7 +57,7 @@ public class GrenadeThrower : MonoBehaviour
     {
         if (grenadeCountText != null)
         {
-            grenadeCountText.text = GRENADES_STRING + grenadesLeft;
+            grenadeCountText.text = grenadesLeft.ToString();
         }
     }
 }

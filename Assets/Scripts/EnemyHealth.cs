@@ -10,6 +10,9 @@ public class EnemyHealth : MonoBehaviour
     GameManager gameManager;
     bool isDead;
 
+    public event System.Action Damaged;
+    public float HealthPercent => startingHealth > 0 ? Mathf.Clamp01((float)currentHealth / startingHealth) : 0f;
+
     void Awake()
     {
         currentHealth = startingHealth;
@@ -24,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        Damaged?.Invoke();
         if (currentHealth <= 0)
         {
             SelfDestruct();

@@ -4,6 +4,8 @@ public class EnemyHealth : MonoBehaviour
 {
    [SerializeField] GameObject deathEffectPrefab;
    [SerializeField] private int startingHealth = 3;
+   [SerializeField] AudioClip deathSFX;
+   [SerializeField] [Range(0f, 1f)] float deathSFXVolume = 1f;
     private int currentHealth;
     GameManager gameManager;
     bool isDead;
@@ -37,6 +39,11 @@ public class EnemyHealth : MonoBehaviour
         Collider enemyCollider = GetComponent<Collider>();
         Vector3 effectPosition = enemyCollider ? enemyCollider.bounds.center : transform.position;
         Instantiate(deathEffectPrefab, effectPosition, Quaternion.identity);
+        if (deathSFX)
+        {
+            // Played from a temporary object because this enemy is destroyed straight away.
+            AudioSource.PlayClipAtPoint(deathSFX, effectPosition, deathSFXVolume);
+        }
         Destroy(this.gameObject);
     }
 }

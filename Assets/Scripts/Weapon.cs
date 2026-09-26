@@ -6,10 +6,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] LayerMask interactableLayerMask;
 
+    [SerializeField] AudioSource fireAudio;
+
     [Header("Projectile weapons only")]
     [SerializeField] Transform projectileSpawnPoint;
     [SerializeField] GameObject muzzleVFX;
-    [SerializeField] AudioSource fireAudio;
 
     const float MAX_AIM_DISTANCE = 1000f;
     const float MUZZLE_VFX_LIFETIME = 2f;
@@ -25,7 +26,7 @@ public class Weapon : MonoBehaviour
     {
         if (muzzleFlash) muzzleFlash.Play();
         if (impulseSource) impulseSource.GenerateImpulse();
-        if (fireAudio) fireAudio.Play();
+        if (fireAudio) fireAudio.PlayOneShot(fireAudio.clip);
 
         if (weaponSO.projectilePrefab)
         {

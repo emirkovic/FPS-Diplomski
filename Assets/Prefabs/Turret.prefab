@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   deathEffectPrefab: {fileID: 6626030175872743012, guid: 47b020d6252be5f4f8adfd01951abe15, type: 3}
   startingHealth: 3
+  deathSFX: {fileID: 8300000, guid: ab297b593498a6e47ba84de770477cbe, type: 3}
+  deathSFXVolume: 1
 --- !u!114 &7504908182080349569
 MonoBehaviour:
   m_ObjectHideFlags: 0

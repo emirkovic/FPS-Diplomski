@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] TMP_Text enemiesLeftText;
     [SerializeField] GameObject youWinText;
+    [SerializeField] GameObject gameOverContainer;
+    [SerializeField] GameObject gameOverText;
+    [SerializeField] GameObject restartButton;
 
     int enemiesLeft = 0;
 
@@ -19,7 +22,23 @@ public class GameManager : MonoBehaviour
         if (enemiesLeft <= 0)
         {
             youWinText.SetActive(true);
+            ShowQuitButton();
         }
+    }
+
+    void ShowQuitButton()
+    {
+        // Reuse the game over screen, but only keep the Quit button visible.
+        if (gameOverContainer == null) return;
+        gameOverContainer.SetActive(true);
+        if (gameOverText != null) gameOverText.SetActive(false);
+        if (restartButton != null) restartButton.SetActive(false);
+
+        StarterAssets.StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssets.StarterAssetsInputs>();
+        if (starterAssetsInputs == null) return;
+        starterAssetsInputs.cursorLocked = false;
+        starterAssetsInputs.SetCursorState(false);
+        starterAssetsInputs.enabled = false;
     }
 
     public void RestartLevelButton()

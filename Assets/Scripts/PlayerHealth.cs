@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.UI;
+using TMPro;
 public class PlayerHealth : MonoBehaviour
 {
     [Range(1, 10)]
@@ -11,11 +12,21 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject shieldContainer;
     [SerializeField] GameObject ammoContainer;
     [SerializeField] GameObject grenadeContainer;
+    [SerializeField] TMP_Text grenadeCountText;
     [SerializeField] GameObject enemiesLeftText;
     [SerializeField] Image[] shieldBars;
     [SerializeField] GameObject gameOverContauiner;
     private int currentHealth;
     int gameOverCameraPriority = 20;
+
+    void Awake()
+    {
+        // Hidden until the player picks up grenades, like the ammo UI before a weapon is picked up.
+        if (grenadeContainer != null)
+        {
+            grenadeContainer.SetActive(false);
+        }
+    }
 
     void Start()
     {
@@ -57,6 +68,18 @@ public class PlayerHealth : MonoBehaviour
             starterAssetsInputs.SetCursorState(false);
             starterAssetsInputs.enabled = false;
             Destroy(this.gameObject);
+        }
+    }
+
+    public void UpdateGrenadeUI(int grenadesLeft)
+    {
+        if (grenadeContainer != null)
+        {
+            grenadeContainer.SetActive(true);
+        }
+        if (grenadeCountText != null)
+        {
+            grenadeCountText.text = grenadesLeft.ToString();
         }
     }
 
